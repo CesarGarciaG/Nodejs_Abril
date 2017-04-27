@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Login - <%= title %></h1>
+    <p>Introduce los datos de usuario</p>
+    <form action="/nodepop/usuarios/login" method="POST">
+    	<label for="email">Email: </label>
+    	<input type="text" name="email" placeholder="Email">
+    	<label for="clave">Contraseña: </label>
+    	<input type="password" name="clave">
+    	<button type="submit" value="submit">Enviar</button>
+    </form>
+  </body>
+</html>

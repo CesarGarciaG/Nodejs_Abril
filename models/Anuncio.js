@@ -6,17 +6,23 @@ const anuncioSchema = mongoose.Schema({
     nombre: {
         type: String,
         unique: true,
+        required: true,
         index: true
     },
     venta: {
         type: Boolean,
+        required: true,
         index: true
     },
     precio: {
         type: Number,
+        required: true,
         index: true
     },
-    foto: String,
+    foto: {
+        type: String,
+        unique: true
+    },
     tags: {
         type: [String],
         enum: ['Work', 'Lifestyle', 'Motor', 'Mobile'],
@@ -39,7 +45,7 @@ anuncioSchema.statics.deleteAll = function(callback) {
             return callback(err);
         }
         callback();
-    })
+    });
 };
 
 anuncioSchema.statics.initialize = function(listAnuncios, callback) {
@@ -56,5 +62,5 @@ anuncioSchema.statics.initialize = function(listAnuncios, callback) {
     }
 };
 
-// Creamos el modelo de Agente (con hoisting para usarlo en los métodos de aquí arriba)
+// Creamos el modelo de Anuncio (con hoisting para usarlo en los métodos de aquí arriba)
 var Anuncio = mongoose.model('Anuncio', anuncioSchema);

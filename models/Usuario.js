@@ -3,13 +3,20 @@
 const mongoose = require('mongoose');
 
 const usuarioSchema = mongoose.Schema({
-    nombre: String,
+    nombre: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
-        unique: true
+        required: true,
+        unique: true,
+        index: true
     },
-    clave: String
+    clave: {
+        type: String,
+        required: true
+    }
 });
 
-// Creamos el modelo de Agente (con hoisting para usarlo en los métodos de aquí arriba)
-var Usuario = mongoose.model('Usuario', usuarioSchema);
+mongoose.model('Usuario', usuarioSchema);

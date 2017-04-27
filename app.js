@@ -1,13 +1,21 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Importamos los módulos de localización
+require('localize');
+const traductor = require('./lib/localization.js');
+
 // Conectamos a la base de datos y cargamos los modelos
 require('./lib/connectMongoose.js');
 require('./models/Anuncio.js');
+require('./models/Usuario.js');
+
 
 var app = express();
 
@@ -21,23 +29,34 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
+
+// Ruta para mostrar imágenes
+app.use('/nodepop/images/anuncios', express.static(path.join(__dirname, '/public/images/')))
 
 
 // Habilitamos CORS (Cross-Origin Resource Sharing)
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 
 // Rutas de la aplicación
-app.use('/', require('./routes/index'));
-app.use('/anuncios', require('./routes/apipop/anuncios.js'));
+app.use('/nodepop', require('./routes/index.js'));
+app.use('/nodepop/login', require('./routes/login.js'));
+app.use('/nodepop/anuncios', require('./routes/apipop/anuncios.js'));
+app.use('/nodepop/usuarios', require('./routes/apipop/usuarios.js'));
+
+// Localization
+app.use(function(req, res, next) {
+    // const lang = req.session.lang || 'es';
+    traductor.setLocale('es');
+    next();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error(traductor.translate('Not found'));
     err.status = 404;
     next(err);
 });
@@ -51,6 +70,7 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+    next();
 });
 
 module.exports = app;
