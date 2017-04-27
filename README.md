@@ -8,7 +8,7 @@
 ## Inicio de sesión
 
 1. Conectar a "http://localhost:3000/nodepop" (o usar Postman en caso alternativo).
-2. Inicia sesión con una cuenta predeterminada (email: asd@asd.com, clave: asd).
+2. Inicia sesión con una cuenta que hayas introducido en la base de datos.
 3. Guarda el token mostrado y vuelve a la pantalla de inicio.
 
 ## Listado de anuncios
@@ -23,11 +23,11 @@ Los filtros se añaden en la dirección. "Ejemplo: http://localhost:3000/nodepop
 * venta: Si el producto está en venta (true) o no (false).
 * nombre: El nombre del anuncio. Podemos poner cualquier combinación de letras que coincida o forme parte del nombre del anuncio que queramos buscar.
 * precio: El precio del producto anunciado. De momento existen 4 rangos:
-	* 10-: Precios mayores o iguales que 10.
-	* 10-50: Precios entre 10 y 50.
-	* -50: Precios menores o iguales que 50.
+	* [num]-: Precios mayores o iguales que el número indicado.
+	* [num1]-[num2]: Precios que figuran entre el primer y segundo número indicados.
+	* -[num]: Precios menores o iguales que el número indicado.
 	* Numero exacto: Precios que coincidan con el numero que busquemos.
-* start: Número que indica la posición del anuncio a partir del cual queremos mostrar la lista.
+* skip: Número que indica la posición del anuncio a partir del cual queremos mostrar la lista.
 * limit: Número que indica la cantidad de anuncios que queramos ver.
 * sort: Si queremos ordenar los anuncios según uno de sus atributos.
 * token: El token asignado al iniciar sesión.
