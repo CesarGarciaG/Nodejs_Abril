@@ -1,5 +1,7 @@
 # NODEPOP (PRIMERA FASE) - GUÍA BÁSICA
 
+_Nota: Este proyecto es simplemente un ejercicio para practicar el uso de Node.js y los diferentes módulos de npm (express, mongoose...). No tiene ninguna utilidad práctica_
+
 ## Arranque de la base de datos
 
 1. Realiza la conexión con el servidor de la base de datos "localhost:27017".
